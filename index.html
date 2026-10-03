@@ -1,233 +1,560 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NovaTools — Simple tools that just work</title>
+  <title>NovaTools — Simple Tools. Smarter Workflow.</title>
+  <meta name="description" content="NovaTools provides fast, useful browser-based tools for everyday tasks.">
 
-    <meta
-        name="description"
-        content="Free, simple and useful online tools for everyday digital tasks."
-    >
-
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <header class="navbar">
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="nav-container">
 
-        <a href="#" class="logo">
-            <span>✦</span> NovaTools
-        </a>
+      <a href="#" class="logo">
+        <span class="logo-mark">N</span>
+        <span>Nova<span class="logo-accent">Tools</span></span>
+      </a>
 
-        <nav>
-            <a href="#tools">Tools</a>
-            <a href="#about">About</a>
-        </nav>
+      <nav class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+      </nav>
 
-    </header>
+      <a href="#tools" class="nav-button">Explore Tools</a>
 
+    </div>
+  </header>
 
-    <!-- MAIN -->
-    <main>
 
-        <!-- HERO -->
-        <section class="hero">
+  <!-- HERO -->
+  <main>
 
-            <div class="badge">
-                ✨ Free online tools
-            </div>
+    <section class="hero">
 
-            <h1>
-                Simple tools.<br>
-                <span>Zero hassle.</span>
-            </h1>
+      <div class="hero-content">
 
-            <p>
-                Useful tools for students, creators, developers and
-                everyday internet users — all in one place.
-            </p>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Free browser tools
+        </div>
 
-            <div class="search-box">
-
-                <span>⌕</span>
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search for a tool..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- TOOLS -->
-        <section class="tools-section" id="tools">
-
-            <div class="section-heading">
-
-                <div>
-                    <p class="eyebrow">TOOLS</p>
-                    <h2>What do you need?</h2>
-                </div>
-
-            </div>
-
-
-            <div class="tools-grid" id="toolsGrid">
-
-                <!-- CALCULATOR -->
-                <article class="tool-card" data-name="calculator math calculate">
-
-                    <div class="tool-icon">🔢</div>
-
-                    <h3>Calculator</h3>
-
-                    <p>
-                        Perform quick calculations directly in your browser.
-                    </p>
-
-                    <button onclick="openTool('calculator')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-
-                <!-- WORD COUNTER -->
-                <article class="tool-card" data-name="word counter text characters">
-
-                    <div class="tool-icon">🔤</div>
-
-                    <h3>Word Counter</h3>
-
-                    <p>
-                        Count words, characters and spaces instantly.
-                    </p>
-
-                    <button onclick="openTool('word-counter')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-
-                <!-- QR -->
-                <article class="tool-card" data-name="qr qr code generator link">
-
-                    <div class="tool-icon">▦</div>
-
-                    <h3>QR Generator</h3>
-
-                    <p>
-                        Turn text or a link into a downloadable QR code.
-                    </p>
-
-                    <button onclick="openTool('qr')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-
-                <!-- COLOR -->
-                <article class="tool-card" data-name="color picker hex rgb design">
-
-                    <div class="tool-icon">🎨</div>
-
-                    <h3>Color Picker</h3>
-
-                    <p>
-                        Pick a color and instantly get its HEX value.
-                    </p>
-
-                    <button onclick="openTool('color')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-
-                <!-- UNIT CONVERTER -->
-                <article class="tool-card" data-name="unit converter length weight temperature">
-
-                    <div class="tool-icon">📏</div>
-
-                    <h3>Unit Converter</h3>
-
-                    <p>
-                        Convert length, weight and temperature quickly.
-                    </p>
-
-                    <button onclick="openTool('converter')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-
-                <!-- IMAGE RESIZER -->
-                <article class="tool-card" data-name="image resizer resize photo picture">
-
-                    <div class="tool-icon">🖼️</div>
-
-                    <h3>Image Resizer</h3>
-
-                    <p>
-                        Resize images directly inside your browser.
-                    </p>
-
-                    <button onclick="openTool('image')">
-                        Open tool →
-                    </button>
-
-                </article>
-
-            </div>
-
-            <p id="noResults" class="no-results">
-                No tools found.
-            </p>
-
-        </section>
-
-
-        <!-- ABOUT -->
-        <section class="about" id="about">
-
-            <p class="eyebrow">ABOUT NOVATOOLS</p>
-
-            <h2>
-                Useful tools without unnecessary complexity.
-            </h2>
-
-            <p>
-                NovaTools is designed to make everyday digital tasks
-                faster, simpler and easier to access.
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
+        <h1>
+          Simple tools.
+          <span>Smarter workflow.</span>
+        </h1>
 
         <p>
-            © 2026 NovaTools. Built with simplicity.
+          Fast, useful and easy-to-use tools for calculations,
+          images, text, documents and everyday tasks.
         </p>
 
-    </footer>
+        <div class="hero-buttons">
+          <a href="#tools" class="primary-button">
+            Explore Tools →
+          </a>
+
+          <a href="#about" class="secondary-button">
+            Learn More
+          </a>
+        </div>
+
+      </div>
 
 
-    <script src="script.js"></script>
+      <div class="hero-visual">
+
+        <div class="floating-card card-one">
+          <span>🧮</span>
+          <div>
+            <strong>Scientific Calculator</strong>
+            <small>Advanced calculations</small>
+          </div>
+        </div>
+
+        <div class="floating-card card-two">
+          <span>📄</span>
+          <div>
+            <strong>Image → PDF</strong>
+            <small>Convert images instantly</small>
+          </div>
+        </div>
+
+        <div class="hero-orb">
+          <div class="orb-inner">N</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOOLS -->
+    <section class="tools-section" id="tools">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-label">OUR TOOLS</span>
+
+          <h2>
+            Everything you need,
+            <span>in one place.</span>
+          </h2>
+        </div>
+
+        <p>
+          Useful browser tools designed to help you
+          work faster without unnecessary software.
+        </p>
+
+      </div>
+
+
+      <!-- SEARCH -->
+      <div class="tool-search">
+        <span>⌕</span>
+
+        <input
+          type="text"
+          id="toolSearch"
+          placeholder="Search for a tool..."
+          autocomplete="off"
+        >
+      </div>
+
+
+      <!-- TOOL GRID -->
+      <div class="tools-grid" id="toolsGrid">
+
+
+        <!-- SCIENTIFIC CALCULATOR -->
+        <div class="tool-card" data-tool="calculator scientific math">
+
+          <div class="tool-icon calculator-icon">
+            🧮
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">MATH</span>
+
+            <h3>Scientific Calculator</h3>
+
+            <p>
+              Perform advanced calculations with
+              scientific functions and history.
+            </p>
+
+            <button onclick="openTool('calculator')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- WORD COUNTER -->
+        <div class="tool-card" data-tool="word counter text">
+
+          <div class="tool-icon text-icon">
+            Aa
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">TEXT</span>
+
+            <h3>Word Counter</h3>
+
+            <p>
+              Count words, characters, sentences
+              and paragraphs instantly.
+            </p>
+
+            <button onclick="openTool('word')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- QR GENERATOR -->
+        <div class="tool-card" data-tool="qr generator code">
+
+          <div class="tool-icon qr-icon">
+            ▦
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">UTILITY</span>
+
+            <h3>QR Generator</h3>
+
+            <p>
+              Turn links or text into downloadable
+              QR codes.
+            </p>
+
+            <button onclick="openTool('qr')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- COLOR PICKER -->
+        <div class="tool-card" data-tool="color picker design">
+
+          <div class="tool-icon color-icon">
+            ◉
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">DESIGN</span>
+
+            <h3>Color Picker</h3>
+
+            <p>
+              Pick colors and instantly get HEX,
+              RGB and HSL values.
+            </p>
+
+            <button onclick="openTool('color')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- UNIT CONVERTER -->
+        <div class="tool-card" data-tool="unit converter conversion">
+
+          <div class="tool-icon converter-icon">
+            ⇄
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">CONVERTER</span>
+
+            <h3>Unit Converter</h3>
+
+            <p>
+              Convert length, weight, temperature
+              and other common units.
+            </p>
+
+            <button onclick="openTool('converter')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- IMAGE RESIZER -->
+        <div class="tool-card" data-tool="image resizer photo">
+
+          <div class="tool-icon image-icon">
+            🖼️
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">IMAGE</span>
+
+            <h3>Image Resizer</h3>
+
+            <p>
+              Resize images quickly without installing
+              additional software.
+            </p>
+
+            <button onclick="openTool('image')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- IMAGE TO PDF -->
+        <div class="tool-card" data-tool="image pdf picture document">
+
+          <div class="tool-icon pdf-icon">
+            📄
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">DOCUMENT</span>
+
+            <h3>Image → PDF</h3>
+
+            <p>
+              Convert one or multiple pictures into
+              a downloadable PDF.
+            </p>
+
+            <button onclick="openTool('imagepdf')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- SPEECH TO TEXT -->
+        <div class="tool-card" data-tool="speech text voice microphone">
+
+          <div class="tool-icon speech-icon">
+            🎙️
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">VOICE</span>
+
+            <h3>Speech → Text</h3>
+
+            <p>
+              Speak into your device and turn your
+              voice into editable text.
+            </p>
+
+            <button onclick="openTool('speech')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- TEXT TO SPEECH -->
+        <div class="tool-card" data-tool="text speech voice audio">
+
+          <div class="tool-icon voice-icon">
+            🔊
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">VOICE</span>
+
+            <h3>Text → Speech</h3>
+
+            <p>
+              Turn written text into natural-sounding
+              spoken audio.
+            </p>
+
+            <button onclick="openTool('tts')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- PASSWORD GENERATOR -->
+        <div class="tool-card" data-tool="password generator security">
+
+          <div class="tool-icon password-icon">
+            🔐
+          </div>
+
+          <div class="tool-content">
+
+            <span class="tool-category">SECURITY</span>
+
+            <h3>Password Generator</h3>
+
+            <p>
+              Generate strong random passwords
+              for your accounts.
+            </p>
+
+            <button onclick="openTool('password')">
+              Open tool →
+            </button>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- NO RESULTS -->
+      <div class="no-results" id="noResults">
+
+        <div>🔎</div>
+
+        <h3>No tools found</h3>
+
+        <p>
+          Try searching for another tool.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+
+      <div class="about-content">
+
+        <span class="section-label">ABOUT NOVATOOLS</span>
+
+        <h2>
+          Small tools can make
+          <span>a big difference.</span>
+        </h2>
+
+        <p>
+          NovaTools is a collection of simple browser-based
+          utilities built to help you complete everyday tasks
+          without unnecessary downloads or complicated software.
+        </p>
+
+
+        <div class="about-features">
+
+          <div>
+            <strong>⚡ Fast</strong>
+            <span>Designed for quick results.</span>
+          </div>
+
+          <div>
+            <strong>🔒 Simple</strong>
+            <span>No complicated setup.</span>
+          </div>
+
+          <div>
+            <strong>📱 Anywhere</strong>
+            <span>Works across modern devices.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="about-card">
+
+        <div class="about-logo">
+          N
+        </div>
+
+        <h3>
+          NovaTools
+        </h3>
+
+        <p>
+          Tools for your everyday workflow.
+        </p>
+
+        <div class="about-line"></div>
+
+        <span>
+          Built by Nova
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <div class="footer-brand">
+
+        <a href="#" class="logo">
+          <span class="logo-mark">N</span>
+          <span>Nova<span class="logo-accent">Tools</span></span>
+        </a>
+
+        <p>
+          Simple tools. Smarter workflow.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#tools">
+          Tools
+        </a>
+
+        <a href="#about">
+          About
+        </a>
+
+      </div>
+
+
+      <div class="footer-copy">
+        © 2026 NovaTools. All rights reserved.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- TOOL MODAL -->
+  <div class="modal" id="toolModal">
+
+    <div
+      class="modal-overlay"
+      onclick="closeTool()">
+    </div>
+
+    <div class="modal-box">
+
+      <button
+        class="modal-close"
+        onclick="closeTool()">
+        ×
+      </button>
+
+      <div id="modalContent"></div>
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
 
 </body>
-                      </html>
+    </html>
