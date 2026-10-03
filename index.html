@@ -5,88 +5,216 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>NovaTools — Simple Tools. Smarter Workflow.</title>
-  <meta name="description" content="NovaTools provides fast, useful browser-based tools for everyday tasks.">
+
+  <meta
+    name="description"
+    content="NovaTools provides simple, fast and useful browser tools for everyday tasks."
+  >
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- ================= NAVBAR ================= -->
   <header class="navbar">
     <div class="nav-container">
 
       <a href="#" class="logo">
         <span class="logo-mark">N</span>
-        <span>Nova<span class="logo-accent">Tools</span></span>
+        <span>NovaTools</span>
       </a>
 
       <nav class="nav-links">
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
-      </nav>
 
-      <a href="#tools" class="nav-button">Explore Tools</a>
+        <a href="#tools">Tools</a>
+
+        <a href="#about">About</a>
+
+        <!-- THEME MENU -->
+        <div class="theme-wrapper">
+
+          <button
+            class="theme-button"
+            id="themeButton"
+            type="button"
+          >
+            <span id="themeIcon">☀️</span>
+            <span>Theme</span>
+            <span class="theme-arrow">⌄</span>
+          </button>
+
+          <div class="theme-menu" id="themeMenu">
+
+            <button
+              class="theme-option active"
+              data-theme-choice="light"
+              type="button"
+            >
+              <span>☀️</span>
+
+              <span>
+                <strong>Light</strong>
+                <small>Clean & bright</small>
+              </span>
+            </button>
+
+            <button
+              class="theme-option"
+              data-theme-choice="dark"
+              type="button"
+            >
+              <span>🌙</span>
+
+              <span>
+                <strong>Dark</strong>
+                <small>Easy on the eyes</small>
+              </span>
+            </button>
+
+            <button
+              class="theme-option"
+              data-theme-choice="midnight"
+              type="button"
+            >
+              <span>🌌</span>
+
+              <span>
+                <strong>Midnight</strong>
+                <small>Deep & modern</small>
+              </span>
+            </button>
+
+            <button
+              class="theme-option"
+              data-theme-choice="ocean"
+              type="button"
+            >
+              <span>🌊</span>
+
+              <span>
+                <strong>Ocean</strong>
+                <small>Cool & calm</small>
+              </span>
+            </button>
+
+            <button
+              class="theme-option"
+              data-theme-choice="rose"
+              type="button"
+            >
+              <span>🌹</span>
+
+              <span>
+                <strong>Rose</strong>
+                <small>Soft & elegant</small>
+              </span>
+            </button>
+
+          </div>
+
+        </div>
+
+        <a href="#tools" class="nav-cta">
+          Explore Tools
+        </a>
+
+      </nav>
 
     </div>
   </header>
 
 
-  <!-- HERO -->
+  <!-- ================= HERO ================= -->
   <main>
 
     <section class="hero">
 
-      <div class="hero-content">
+      <div class="hero-container">
 
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          Free browser tools
-        </div>
+        <div class="hero-content">
 
-        <h1>
-          Simple tools.
-          <span>Smarter workflow.</span>
-        </h1>
-
-        <p>
-          Fast, useful and easy-to-use tools for calculations,
-          images, text, documents and everyday tasks.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#tools" class="primary-button">
-            Explore Tools →
-          </a>
-
-          <a href="#about" class="secondary-button">
-            Learn More
-          </a>
-        </div>
-
-      </div>
-
-
-      <div class="hero-visual">
-
-        <div class="floating-card card-one">
-          <span>🧮</span>
-          <div>
-            <strong>Scientific Calculator</strong>
-            <small>Advanced calculations</small>
+          <div class="hero-badge">
+            <span>✦</span>
+            Free browser-based tools
           </div>
-        </div>
 
-        <div class="floating-card card-two">
-          <span>📄</span>
-          <div>
-            <strong>Image → PDF</strong>
-            <small>Convert images instantly</small>
+          <h1>
+            Simple tools.<br>
+            <span>Smarter workflow.</span>
+          </h1>
+
+          <p>
+            NovaTools gives you fast, simple and useful tools
+            for everyday digital tasks — all in one place.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#tools" class="btn btn-primary">
+              Explore Tools →
+            </a>
+
+            <a href="#about" class="btn btn-secondary">
+              Learn More
+            </a>
+
           </div>
+
         </div>
 
-        <div class="hero-orb">
-          <div class="orb-inner">N</div>
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+          <div class="visual-card calculator-preview">
+
+            <div class="visual-card-top">
+              <span>Scientific Calculator</span>
+              <span>⌁</span>
+            </div>
+
+            <div class="calculator-display">
+              12 × 8 =
+              <strong>96</strong>
+            </div>
+
+            <div class="mini-calculator-grid">
+              <span>sin</span>
+              <span>cos</span>
+              <span>tan</span>
+              <span>√</span>
+              <span>7</span>
+              <span>8</span>
+              <span>9</span>
+              <span>÷</span>
+            </div>
+
+          </div>
+
+
+          <div class="visual-card pdf-preview">
+
+            <div class="pdf-icon">
+              PDF
+            </div>
+
+            <div>
+              <strong>Image → PDF</strong>
+
+              <p>
+                Convert images instantly
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="hero-orb">
+            N
+          </div>
+
         </div>
 
       </div>
@@ -94,394 +222,424 @@
     </section>
 
 
-    <!-- TOOLS -->
-    <section class="tools-section" id="tools">
+    <!-- ================= TOOLS ================= -->
 
-      <div class="section-heading">
+    <section
+      class="tools-section"
+      id="tools"
+    >
 
-        <div>
-          <span class="section-label">OUR TOOLS</span>
+      <div class="section-container">
 
-          <h2>
-            Everything you need,
-            <span>in one place.</span>
-          </h2>
-        </div>
+        <div class="section-heading">
 
-        <p>
-          Useful browser tools designed to help you
-          work faster without unnecessary software.
-        </p>
+          <div>
 
-      </div>
+            <span class="section-label">
+              TOOLS
+            </span>
 
-
-      <!-- SEARCH -->
-      <div class="tool-search">
-        <span>⌕</span>
-
-        <input
-          type="text"
-          id="toolSearch"
-          placeholder="Search for a tool..."
-          autocomplete="off"
-        >
-      </div>
-
-
-      <!-- TOOL GRID -->
-      <div class="tools-grid" id="toolsGrid">
-
-
-        <!-- SCIENTIFIC CALCULATOR -->
-        <div class="tool-card" data-tool="calculator scientific math">
-
-          <div class="tool-icon calculator-icon">
-            🧮
-          </div>
-
-          <div class="tool-content">
-
-            <span class="tool-category">MATH</span>
-
-            <h3>Scientific Calculator</h3>
+            <h2>
+              Everything you need.
+            </h2>
 
             <p>
-              Perform advanced calculations with
-              scientific functions and history.
+              Useful browser tools designed to make everyday tasks easier.
             </p>
 
-            <button onclick="openTool('calculator')">
-              Open tool →
-            </button>
+          </div>
+
+
+          <div class="search-box">
+
+            <span>⌕</span>
+
+            <input
+              type="search"
+              id="toolSearch"
+              placeholder="Search tools..."
+              autocomplete="off"
+            >
 
           </div>
 
         </div>
 
 
-        <!-- WORD COUNTER -->
-        <div class="tool-card" data-tool="word counter text">
+        <!-- TOOL GRID -->
 
-          <div class="tool-icon text-icon">
-            Aa
-          </div>
+        <div
+          class="tools-grid"
+          id="toolsGrid"
+        >
 
-          <div class="tool-content">
+          <!-- 1. CALCULATOR -->
 
-            <span class="tool-category">TEXT</span>
+          <article
+            class="tool-card"
+            data-tool="calculator"
+          >
 
-            <h3>Word Counter</h3>
+            <div class="tool-icon calculator-icon">
+              ⌗
+            </div>
+
+            <h3>
+              Scientific Calculator
+            </h3>
+
+            <p>
+              Perform advanced mathematical calculations
+              with scientific functions.
+            </p>
+
+            <button
+              onclick="openTool('calculator')"
+            >
+              Open Tool →
+            </button>
+
+          </article>
+
+
+          <!-- 2. WORD COUNTER -->
+
+          <article
+            class="tool-card"
+            data-tool="word"
+          >
+
+            <div class="tool-icon word-icon">
+              Aa
+            </div>
+
+            <h3>
+              Word Counter
+            </h3>
 
             <p>
               Count words, characters, sentences
               and paragraphs instantly.
             </p>
 
-            <button onclick="openTool('word')">
-              Open tool →
+            <button
+              onclick="openTool('word')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- QR GENERATOR -->
-        <div class="tool-card" data-tool="qr generator code">
+          <!-- 3. QR GENERATOR -->
 
-          <div class="tool-icon qr-icon">
-            ▦
-          </div>
+          <article
+            class="tool-card"
+            data-tool="qr"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon qr-icon">
+              ▦
+            </div>
 
-            <span class="tool-category">UTILITY</span>
-
-            <h3>QR Generator</h3>
+            <h3>
+              QR Generator
+            </h3>
 
             <p>
-              Turn links or text into downloadable
-              QR codes.
+              Create a QR code from any text,
+              link or information.
             </p>
 
-            <button onclick="openTool('qr')">
-              Open tool →
+            <button
+              onclick="openTool('qr')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- COLOR PICKER -->
-        <div class="tool-card" data-tool="color picker design">
+          <!-- 4. COLOR PICKER -->
 
-          <div class="tool-icon color-icon">
-            ◉
-          </div>
+          <article
+            class="tool-card"
+            data-tool="color"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon color-icon">
+              ◉
+            </div>
 
-            <span class="tool-category">DESIGN</span>
-
-            <h3>Color Picker</h3>
+            <h3>
+              Color Picker
+            </h3>
 
             <p>
               Pick colors and instantly get HEX,
               RGB and HSL values.
             </p>
 
-            <button onclick="openTool('color')">
-              Open tool →
+            <button
+              onclick="openTool('color')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- UNIT CONVERTER -->
-        <div class="tool-card" data-tool="unit converter conversion">
+          <!-- 5. UNIT CONVERTER -->
 
-          <div class="tool-icon converter-icon">
-            ⇄
-          </div>
+          <article
+            class="tool-card"
+            data-tool="converter"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon converter-icon">
+              ⇄
+            </div>
 
-            <span class="tool-category">CONVERTER</span>
-
-            <h3>Unit Converter</h3>
+            <h3>
+              Unit Converter
+            </h3>
 
             <p>
               Convert length, weight, temperature
               and other common units.
             </p>
 
-            <button onclick="openTool('converter')">
-              Open tool →
+            <button
+              onclick="openTool('converter')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- IMAGE RESIZER -->
-        <div class="tool-card" data-tool="image resizer photo">
+          <!-- 6. IMAGE RESIZER -->
 
-          <div class="tool-icon image-icon">
-            🖼️
-          </div>
+          <article
+            class="tool-card"
+            data-tool="image"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon image-icon">
+              ▧
+            </div>
 
-            <span class="tool-category">IMAGE</span>
-
-            <h3>Image Resizer</h3>
+            <h3>
+              Image Resizer
+            </h3>
 
             <p>
-              Resize images quickly without installing
-              additional software.
+              Resize images quickly while maintaining
+              control over dimensions.
             </p>
 
-            <button onclick="openTool('image')">
-              Open tool →
+            <button
+              onclick="openTool('image')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- IMAGE TO PDF -->
-        <div class="tool-card" data-tool="image pdf picture document">
+          <!-- 7. IMAGE TO PDF -->
 
-          <div class="tool-icon pdf-icon">
-            📄
-          </div>
+          <article
+            class="tool-card"
+            data-tool="imagepdf"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon pdf-icon-small">
+              PDF
+            </div>
 
-            <span class="tool-category">DOCUMENT</span>
-
-            <h3>Image → PDF</h3>
+            <h3>
+              Image → PDF
+            </h3>
 
             <p>
-              Convert one or multiple pictures into
-              a downloadable PDF.
+              Convert one or multiple images
+              into a downloadable PDF.
             </p>
 
-            <button onclick="openTool('imagepdf')">
-              Open tool →
+            <button
+              onclick="openTool('imagepdf')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- SPEECH TO TEXT -->
-        <div class="tool-card" data-tool="speech text voice microphone">
+          <!-- 8. SPEECH TO TEXT -->
 
-          <div class="tool-icon speech-icon">
-            🎙️
-          </div>
+          <article
+            class="tool-card"
+            data-tool="speech"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon speech-icon">
+              🎙
+            </div>
 
-            <span class="tool-category">VOICE</span>
-
-            <h3>Speech → Text</h3>
+            <h3>
+              Speech → Text
+            </h3>
 
             <p>
-              Speak into your device and turn your
-              voice into editable text.
+              Turn your voice into text directly
+              in your browser.
             </p>
 
-            <button onclick="openTool('speech')">
-              Open tool →
+            <button
+              onclick="openTool('speech')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- TEXT TO SPEECH -->
-        <div class="tool-card" data-tool="text speech voice audio">
+          <!-- 9. TEXT TO SPEECH -->
 
-          <div class="tool-icon voice-icon">
-            🔊
-          </div>
+          <article
+            class="tool-card"
+            data-tool="tts"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon tts-icon">
+              🔊
+            </div>
 
-            <span class="tool-category">VOICE</span>
-
-            <h3>Text → Speech</h3>
+            <h3>
+              Text → Speech
+            </h3>
 
             <p>
               Turn written text into natural-sounding
-              spoken audio.
+              speech.
             </p>
 
-            <button onclick="openTool('tts')">
-              Open tool →
+            <button
+              onclick="openTool('tts')"
+            >
+              Open Tool →
             </button>
 
-          </div>
-
-        </div>
+          </article>
 
 
-        <!-- PASSWORD GENERATOR -->
-        <div class="tool-card" data-tool="password generator security">
+          <!-- 10. PASSWORD GENERATOR -->
 
-          <div class="tool-icon password-icon">
-            🔐
-          </div>
+          <article
+            class="tool-card"
+            data-tool="password"
+          >
 
-          <div class="tool-content">
+            <div class="tool-icon password-icon">
+              ✦
+            </div>
 
-            <span class="tool-category">SECURITY</span>
-
-            <h3>Password Generator</h3>
+            <h3>
+              Password Generator
+            </h3>
 
             <p>
               Generate strong random passwords
-              for your accounts.
+              with customizable options.
             </p>
 
-            <button onclick="openTool('password')">
-              Open tool →
+            <button
+              onclick="openTool('password')"
+            >
+              Open Tool →
             </button>
 
-          </div>
+          </article>
 
         </div>
 
 
-      </div>
+        <!-- NO SEARCH RESULTS -->
 
+        <div
+          class="no-results"
+          id="noResults"
+        >
 
-      <!-- NO RESULTS -->
-      <div class="no-results" id="noResults">
+          <div>
+            ⌕
+          </div>
 
-        <div>🔎</div>
+          <h3>
+            No tools found
+          </h3>
 
-        <h3>No tools found</h3>
+          <p>
+            Try searching for another tool.
+          </p>
 
-        <p>
-          Try searching for another tool.
-        </p>
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- ABOUT -->
-    <section class="about-section" id="about">
+    <!-- ================= ABOUT ================= -->
 
-      <div class="about-content">
+    <section
+      class="about-section"
+      id="about"
+    >
 
-        <span class="section-label">ABOUT NOVATOOLS</span>
+      <div class="section-container">
 
-        <h2>
-          Small tools can make
-          <span>a big difference.</span>
-        </h2>
+        <div class="about-content">
 
-        <p>
-          NovaTools is a collection of simple browser-based
-          utilities built to help you complete everyday tasks
-          without unnecessary downloads or complicated software.
-        </p>
+          <span class="section-label">
+            ABOUT NOVATOOLS
+          </span>
 
+          <h2>
+            Small tools.<br>
+            Big convenience.
+          </h2>
 
-        <div class="about-features">
+          <p>
+            NovaTools is a collection of simple
+            browser-based utilities designed to help
+            you get everyday digital tasks done faster.
+          </p>
 
-          <div>
-            <strong>⚡ Fast</strong>
-            <span>Designed for quick results.</span>
-          </div>
-
-          <div>
-            <strong>🔒 Simple</strong>
-            <span>No complicated setup.</span>
-          </div>
-
-          <div>
-            <strong>📱 Anywhere</strong>
-            <span>Works across modern devices.</span>
-          </div>
+          <p>
+            No complicated setup. No unnecessary software.
+            Just open a tool and get to work.
+          </p>
 
         </div>
 
-      </div>
 
+        <div class="about-card">
 
-      <div class="about-card">
+          <div class="about-logo">
+            N
+          </div>
 
-        <div class="about-logo">
-          N
+          <h3>
+            Built for simplicity.
+          </h3>
+
+          <p>
+            Fast, clean and accessible tools for everyone.
+          </p>
+
         </div>
-
-        <h3>
-          NovaTools
-        </h3>
-
-        <p>
-          Tools for your everyday workflow.
-        </p>
-
-        <div class="about-line"></div>
-
-        <span>
-          Built by Nova
-        </span>
 
       </div>
 
@@ -490,7 +648,8 @@
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
+
   <footer class="footer">
 
     <div class="footer-container">
@@ -498,8 +657,15 @@
       <div class="footer-brand">
 
         <a href="#" class="logo">
-          <span class="logo-mark">N</span>
-          <span>Nova<span class="logo-accent">Tools</span></span>
+
+          <span class="logo-mark">
+            N
+          </span>
+
+          <span>
+            NovaTools
+          </span>
+
         </a>
 
         <p>
@@ -522,28 +688,33 @@
       </div>
 
 
-      <div class="footer-copy">
+      <p class="copyright">
         © 2026 NovaTools. All rights reserved.
-      </div>
+      </p>
 
     </div>
 
   </footer>
 
 
-  <!-- TOOL MODAL -->
-  <div class="modal" id="toolModal">
+  <!-- ================= TOOL MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="toolModal"
+    onclick="closeTool()"
+  >
 
     <div
-      class="modal-overlay"
-      onclick="closeTool()">
-    </div>
-
-    <div class="modal-box">
+      class="modal-box"
+      onclick="event.stopPropagation()"
+    >
 
       <button
         class="modal-close"
-        onclick="closeTool()">
+        onclick="closeTool()"
+        aria-label="Close"
+      >
         ×
       </button>
 
@@ -554,7 +725,14 @@
   </div>
 
 
+  <!-- ================= PDF LIBRARY ================= -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+  <!-- ================= NOVATOOLS JAVASCRIPT ================= -->
+
   <script src="script.js"></script>
 
 </body>
-    </html>
+</html>
