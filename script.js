@@ -1,1168 +1,1035 @@
-/* =====================================
-   NOVATOOLS
-   MAIN JAVASCRIPT
-===================================== */
+/* =========================================================
+   NOVATOOLS — MAIN JAVASCRIPT
+   ========================================================= */
 
 
-/* =====================================
-   SEARCH
-===================================== */
+/* =========================================================
+   THEME SYSTEM
+   ========================================================= */
 
+const themeButton = document.getElementById("themeButton");
+const themeMenu = document.getElementById("themeMenu");
+const themeIcon = document.getElementById("themeIcon");
+const themeOptions = document.querySelectorAll(".theme-option");
+
+const themeIcons = {
+  light: "☀️",
+  dark: "🌙",
+  midnight: "🌌",
+  ocean: "🌊",
+  rose: "🌹"
+};
+
+function applyTheme(theme) {
+  if (theme === "light") {
+    document.documentElement.removeAttribute("data-theme");
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  if (themeIcon) {
+    themeIcon.textContent = themeIcons[theme] || "☀️";
+  }
+
+  themeOptions.forEach(option => {
+    option.classList.toggle(
+      "active",
+      option.dataset.themeChoice === theme
+    );
+  });
+
+  localStorage.setItem("novaToolsTheme", theme);
+}
+
+const savedTheme =
+  localStorage.getItem("novaToolsTheme") || "light";
+
+applyTheme(savedTheme);
+
+if (themeButton) {
+  themeButton.addEventListener("click", event => {
+    event.stopPropagation();
+
+    themeMenu.classList.toggle("active");
+  });
+}
+
+themeOptions.forEach(option => {
+  option.addEventListener("click", event => {
+    event.stopPropagation();
+
+    const selectedTheme =
+      option.dataset.themeChoice;
+
+    applyTheme(selectedTheme);
+
+    themeMenu.classList.remove("active");
+  });
+});
+
+document.addEventListener("click", event => {
+  if (
+    themeMenu &&
+    themeButton &&
+    !themeMenu.contains(event.target) &&
+    !themeButton.contains(event.target)
+  ) {
+    themeMenu.classList.remove("active");
+  }
+});
+
+
+/* =========================================================
+   TOOL SEARCH
+   ========================================================= */
 
 const searchInput =
-    document.getElementById("searchInput");
+  document.getElementById("toolSearch");
 
 const toolCards =
-    document.querySelectorAll(".tool-card");
+  document.querySelectorAll(".tool-card");
 
 const noResults =
-    document.getElementById("noResults");
+  document.getElementById("noResults");
 
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
 
-searchInput.addEventListener("input", function () {
+    const searchTerm =
+      searchInput.value.toLowerCase().trim();
 
-    const search =
-        this.value.toLowerCase().trim();
+    let visibleTools = 0;
 
-    let found = 0;
+    toolCards.forEach(card => {
 
-    toolCards.forEach(function (card) {
+      const text =
+        card.textContent.toLowerCase();
 
-        const name =
-            card.dataset.name.toLowerCase();
+      const toolName =
+        card.dataset.tool.toLowerCase();
 
-        if (name.includes(search)) {
+      const matches =
+        text.includes(searchTerm) ||
+        toolName.includes(searchTerm);
 
-            card.style.display = "";
+      card.style.display =
+        matches ? "" : "none";
 
-            found++;
-
-        } else {
-
-            card.style.display = "none";
-
-        }
+      if (matches) {
+        visibleTools++;
+      }
 
     });
 
-
-    if (found === 0 && search !== "") {
-
-        noResults.style.display = "block";
-
-    } else {
-
-        noResults.style.display = "none";
-
+    if (noResults) {
+      noResults.style.display =
+        visibleTools === 0 ? "block" : "none";
     }
+
+  });
+}
+
+
+/* =========================================================
+   MODAL SYSTEM
+   ========================================================= */
+
+const toolModal =
+  document.getElementById("toolModal");
+
+const modalContent =
+  document.getElementById("modalContent");
+
+function openTool(tool) {
+
+  if (!toolModal || !modalContent) return;
+
+  let content = "";
+
+  switch (tool) {
+
+    case "calculator":
+      content = calculatorHTML();
+      break;
+
+    case "word":
+      content = wordCounterHTML();
+      break;
+
+    case "qr":
+      content = qrGeneratorHTML();
+      break;
+
+    case "color":
+      content = colorPickerHTML();
+      break;
+
+    case "converter":
+      content = converterHTML();
+      break;
+
+    case "image":
+      content = imageResizerHTML();
+      break;
+
+    case "imagepdf":
+      content = imagePDFHTML();
+      break;
+
+    case "speech":
+      content = speechToTextHTML();
+      break;
+
+    case "tts":
+      content = textToSpeechHTML();
+      break;
+
+    case "password":
+      content = passwordGeneratorHTML();
+      break;
+
+    default:
+      content = "<p>Tool not found.</p>";
+  }
+
+  modalContent.innerHTML = content;
+
+  toolModal.classList.add("active");
+
+  document.body.classList.add("modal-open");
+
+  initializeTool(tool);
+}
+
+function closeTool() {
+
+  if (!toolModal) return;
+
+  toolModal.classList.remove("active");
+
+  document.body.classList.remove("modal-open");
+
+  if (window.speechSynthesis) {
+    speechSynthesis.cancel();
+  }
+}
+
+function initializeTool(tool) {
+
+  switch (tool) {
+
+    case "calculator":
+      initializeCalculator();
+      break;
+
+    case "word":
+      initializeWordCounter();
+      break;
+
+    case "qr":
+      initializeQRGenerator();
+      break;
+
+    case "color":
+      initializeColorPicker();
+      break;
+
+    case "converter":
+      initializeConverter();
+      break;
+
+    case "image":
+      initializeImageResizer();
+      break;
+
+    case "imagepdf":
+      initializeImagePDF();
+      break;
+
+    case "speech":
+      initializeSpeechToText();
+      break;
+
+    case "tts":
+      initializeTextToSpeech();
+      break;
+
+    case "password":
+      initializePasswordGenerator();
+      break;
+  }
+}
+
+document.addEventListener("keydown", event => {
+
+  if (
+    event.key === "Escape" &&
+    toolModal &&
+    toolModal.classList.contains("active")
+  ) {
+    closeTool();
+  }
 
 });
 
 
-/* =====================================
-   OPEN TOOL
-===================================== */
+/* =========================================================
+   1. SCIENTIFIC CALCULATOR
+   ========================================================= */
 
+function calculatorHTML() {
 
-function openTool(tool) {
+  return `
+    <div class="tool-interface calculator-tool">
 
-    if (tool === "calculator") {
+      <div class="tool-header">
+        <span class="tool-label">SCIENTIFIC CALCULATOR</span>
+        <h2>Advanced Calculator</h2>
+        <p>Perform scientific calculations directly in your browser.</p>
+      </div>
 
-        openCalculator();
+      <div class="calculator">
 
-    }
+        <div class="calculator-screen">
+          <div id="calcExpression">0</div>
+          <div id="calcResult"></div>
+        </div>
 
-    else if (tool === "word-counter") {
+        <div class="calculator-mode">
+          <button id="calcDegree" class="calc-mode active">
+            DEG
+          </button>
 
-        openWordCounter();
+          <button id="calcRadian" class="calc-mode">
+            RAD
+          </button>
+        </div>
 
-    }
+        <div class="calculator-buttons">
 
-    else if (tool === "qr") {
+          <button data-calc="sin(">sin</button>
+          <button data-calc="cos(">cos</button>
+          <button data-calc="tan(">tan</button>
+          <button data-calc="log(">log</button>
+          <button data-calc="ln(">ln</button>
 
-        openQR();
+          <button data-calc="sqrt(">√</button>
+          <button data-calc="^2">x²</button>
+          <button data-calc="^">xʸ</button>
+          <button data-calc="(">(</button>
+          <button data-calc=")">)</button>
 
-    }
+          <button data-calc="pi">π</button>
+          <button data-calc="e">e</button>
+          <button data-calc="%">%</button>
+          <button data-action="delete">DEL</button>
+          <button data-action="clear" class="danger">AC</button>
 
-    else if (tool === "color") {
+          <button data-calc="7">7</button>
+          <button data-calc="8">8</button>
+          <button data-calc="9">9</button>
+          <button data-calc="/">÷</button>
+          <button data-calc="*">×</button>
 
-        openColorPicker();
+          <button data-calc="4">4</button>
+          <button data-calc="5">5</button>
+          <button data-calc="6">6</button>
+          <button data-calc="-">−</button>
+          <button data-calc="+">+</button>
 
-    }
+          <button data-calc="1">1</button>
+          <button data-calc="2">2</button>
+          <button data-calc="3">3</button>
+          <button data-calc=".">.</button>
+          <button data-action="equals" class="equals">=</button>
 
-    else if (tool === "converter") {
-
-        openConverter();
-
-    }
-
-    else if (tool === "image") {
-
-        openImageResizer();
-
-    }
-
-}
-
-
-/* =====================================
-   TOOL WINDOW
-===================================== */
-
-
-function createToolWindow(content) {
-
-    const windowElement =
-        document.createElement("div");
-
-    windowElement.className =
-        "tool-window";
-
-    windowElement.innerHTML = `
-
-        <div class="tool-window-content">
-
-            <button
-                class="close-tool"
-                onclick="closeTool()"
-            >
-                ×
-            </button>
-
-            ${content}
+          <button data-calc="0" class="zero">0</button>
 
         </div>
 
-    `;
+        <div class="calculator-history">
+          <div class="history-title">
+            <strong>History</strong>
+            <button id="clearHistory">Clear</button>
+          </div>
 
-    document.body.appendChild(windowElement);
-
-}
-
-
-function closeTool() {
-
-    const windowElement =
-        document.querySelector(".tool-window");
-
-    if (windowElement) {
-
-        windowElement.remove();
-
-    }
-
-}
-
-
-/* =====================================
-   WORD COUNTER
-===================================== */
-
-
-function openWordCounter() {
-
-    createToolWindow(`
-
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            Word Counter
-        </h2>
-
-        <p class="tool-description">
-            Count words and characters instantly.
-        </p>
-
-        <textarea
-            id="wordInput"
-            placeholder="Start typing or paste your text here..."
-        ></textarea>
-
-        <div class="counter-results">
-
-            <div class="counter-box">
-
-                <span id="wordCount">
-                    0
-                </span>
-
-                <small>
-                    Words
-                </small>
-
-            </div>
-
-
-            <div class="counter-box">
-
-                <span id="characterCount">
-                    0
-                </span>
-
-                <small>
-                    Characters
-                </small>
-
-            </div>
-
-
-            <div class="counter-box">
-
-                <span id="characterNoSpace">
-                    0
-                </span>
-
-                <small>
-                    Without spaces
-                </small>
-
-            </div>
-
+          <div id="calcHistory">
+            No calculations yet.
+          </div>
         </div>
 
-    `);
+      </div>
+
+    </div>
+  `;
+}
 
 
-    const input =
-        document.getElementById("wordInput");
+function initializeCalculator() {
+
+  let expression = "";
+
+  let degreeMode = true;
+
+  let history = [];
+
+  const screen =
+    document.getElementById("calcExpression");
+
+  const resultScreen =
+    document.getElementById("calcResult");
+
+  const historyBox =
+    document.getElementById("calcHistory");
+
+  const degreeButton =
+    document.getElementById("calcDegree");
+
+  const radianButton =
+    document.getElementById("calcRadian");
 
 
-    input.addEventListener("input", function () {
+  function updateScreen() {
 
-        const text =
-            input.value;
-
-
-        const words =
-            text.trim()
-                ? text.trim().split(/\s+/).length
-                : 0;
+    screen.textContent =
+      expression || "0";
+  }
 
 
-        document.getElementById("wordCount")
-            .textContent = words;
+  document
+    .querySelectorAll("[data-calc]")
+    .forEach(button => {
 
+      button.addEventListener("click", () => {
 
-        document.getElementById("characterCount")
-            .textContent = text.length;
+        const value =
+          button.dataset.calc;
 
+        expression += value;
 
-        document.getElementById("characterNoSpace")
-            .textContent =
-                text.replace(/\s/g, "").length;
+        updateScreen();
+
+      });
 
     });
 
-}
+
+  document
+    .querySelector('[data-action="clear"]')
+    .addEventListener("click", () => {
+
+      expression = "";
+
+      resultScreen.textContent = "";
+
+      updateScreen();
+
+    });
 
 
-/* =====================================
-   CALCULATOR
-===================================== */
+  document
+    .querySelector('[data-action="delete"]')
+    .addEventListener("click", () => {
+
+      expression =
+        expression.slice(0, -1);
+
+      updateScreen();
+
+    });
 
 
-function openCalculator() {
-
-    createToolWindow(`
-
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            Calculator
-        </h2>
-
-        <p class="tool-description">
-            Perform quick calculations.
-        </p>
+  document
+    .querySelector('[data-action="equals"]')
+    .addEventListener("click", calculate);
 
 
-        <div class="calculator">
+  function calculate() {
 
-            <input
-                id="calcDisplay"
-                class="calculator-display"
-                type="text"
-                readonly
-                value=""
-            >
-
-
-            <div class="calculator-buttons">
-
-                <button class="calc-btn"
-                    onclick="clearCalculator()">
-                    C
-                </button>
-
-                <button class="calc-btn"
-                    onclick="deleteCalculator()">
-                    DEL
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('/')">
-                    ÷
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('*')">
-                    ×
-                </button>
-
-
-                <button class="calc-btn"
-                    onclick="addCalculator('7')">
-                    7
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('8')">
-                    8
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('9')">
-                    9
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('-')">
-                    −
-                </button>
-
-
-                <button class="calc-btn"
-                    onclick="addCalculator('4')">
-                    4
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('5')">
-                    5
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('6')">
-                    6
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('+')">
-                    +
-                </button>
-
-
-                <button class="calc-btn"
-                    onclick="addCalculator('1')">
-                    1
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('2')">
-                    2
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('3')">
-                    3
-                </button>
-
-                <button
-                    class="calc-btn calc-equal"
-                    onclick="calculateResult()"
-                >
-                    =
-                </button>
-
-
-                <button class="calc-btn"
-                    onclick="addCalculator('0')">
-                    0
-                </button>
-
-                <button class="calc-btn"
-                    onclick="addCalculator('.')">
-                    .
-                </button>
-
-            </div>
-
-        </div>
-
-    `);
-
-}
-
-
-function addCalculator(value) {
-
-    const display =
-        document.getElementById("calcDisplay");
-
-    display.value += value;
-
-}
-
-
-function clearCalculator() {
-
-    document.getElementById("calcDisplay")
-        .value = "";
-
-}
-
-
-function deleteCalculator() {
-
-    const display =
-        document.getElementById("calcDisplay");
-
-    display.value =
-        display.value.slice(0, -1);
-
-}
-
-
-function calculateResult() {
-
-    const display =
-        document.getElementById("calcDisplay");
+    if (!expression) return;
 
     try {
 
-        if (!display.value) return;
+      const original =
+        expression;
 
-        if (!/^[0-9+\-*/.() ]+$/.test(display.value)) {
+      let safeExpression =
+        expression;
 
-            display.value = "Error";
+      safeExpression =
+        safeExpression
+          .replaceAll("pi", "Math.PI")
+          .replaceAll("e", "Math.E")
+          .replaceAll("sqrt", "Math.sqrt")
+          .replaceAll("ln", "Math.log")
+          .replaceAll("log", "Math.log10");
 
-            return;
+      safeExpression =
+        safeExpression.replace(
+          /sin\((.*?)\)/g,
+          (_, value) =>
+            degreeMode
+              ? `Math.sin((${value}) * Math.PI / 180)`
+              : `Math.sin(${value})`
+        );
 
-        }
+      safeExpression =
+        safeExpression.replace(
+          /cos\((.*?)\)/g,
+          (_, value) =>
+            degreeMode
+              ? `Math.cos((${value}) * Math.PI / 180)`
+              : `Math.cos(${value})`
+        );
 
-        display.value =
-            Function(
-                `"use strict"; return (${display.value})`
-            )();
+      safeExpression =
+        safeExpression.replace(
+          /tan\((.*?)\)/g,
+          (_, value) =>
+            degreeMode
+              ? `Math.tan((${value}) * Math.PI / 180)`
+              : `Math.tan(${value})`
+        );
+
+      safeExpression =
+        safeExpression.replaceAll("^", "**");
+
+      safeExpression =
+        safeExpression.replace(
+          /(\d+(?:\.\d+)?)%/g,
+          "($1/100)"
+        );
+
+      if (
+        !/^[0-9+\-*/().,\sA-Za-z_*]+$/.test(
+          safeExpression
+        )
+      ) {
+        throw new Error("Invalid expression");
+      }
+
+      const result =
+        Function(
+          `"use strict"; return (${safeExpression})`
+        )();
+
+      if (
+        typeof result !== "number" ||
+        !Number.isFinite(result)
+      ) {
+        throw new Error("Invalid result");
+      }
+
+      const formatted =
+        Number(result.toFixed(10));
+
+      resultScreen.textContent =
+        formatted;
+
+      history.unshift(
+        `${original} = ${formatted}`
+      );
+
+      if (history.length > 10) {
+        history.pop();
+      }
+
+      renderHistory();
+
+    } catch (error) {
+
+      resultScreen.textContent =
+        "Error";
 
     }
 
-    catch {
+  }
 
-        display.value = "Error";
+
+  function renderHistory() {
+
+    if (!history.length) {
+
+      historyBox.textContent =
+        "No calculations yet.";
+
+      return;
 
     }
+
+    historyBox.innerHTML =
+      history
+        .map(item => `<div>${escapeHTML(item)}</div>`)
+        .join("");
+
+  }
+
+
+  degreeButton.addEventListener("click", () => {
+
+    degreeMode = true;
+
+    degreeButton.classList.add("active");
+
+    radianButton.classList.remove("active");
+
+  });
+
+
+  radianButton.addEventListener("click", () => {
+
+    degreeMode = false;
+
+    radianButton.classList.add("active");
+
+    degreeButton.classList.remove("active");
+
+  });
+
+
+  document
+    .getElementById("clearHistory")
+    .addEventListener("click", () => {
+
+      history = [];
+
+      renderHistory();
+
+    });
+
+
+  document.addEventListener("keydown", calculatorKeyboard);
+
+  function calculatorKeyboard(event) {
+
+    if (
+      !toolModal.classList.contains("active")
+    ) return;
+
+    const allowed =
+      "0123456789+-*/().";
+
+    if (allowed.includes(event.key)) {
+
+      expression += event.key;
+
+      updateScreen();
+
+    }
+
+    if (event.key === "Enter") {
+      calculate();
+    }
+
+    if (event.key === "Backspace") {
+
+      expression =
+        expression.slice(0, -1);
+
+      updateScreen();
+
+    }
+
+  }
 
 }
 
 
-/* =====================================
-   QR GENERATOR
-===================================== */
+/* =========================================================
+   2. WORD COUNTER
+   ========================================================= */
+
+function wordCounterHTML() {
+
+  return `
+    <div class="tool-interface">
+
+      <div class="tool-header">
+        <span class="tool-label">TEXT TOOL</span>
+        <h2>Word Counter</h2>
+        <p>Analyze your text instantly.</p>
+      </div>
+
+      <textarea
+        id="wordInput"
+        class="tool-textarea"
+        placeholder="Start typing or paste your text here..."
+      ></textarea>
+
+      <div class="stats-grid">
+
+        <div class="stat-box">
+          <strong id="wordCount">0</strong>
+          <span>Words</span>
+        </div>
+
+        <div class="stat-box">
+          <strong id="charCount">0</strong>
+          <span>Characters</span>
+        </div>
+
+        <div class="stat-box">
+          <strong id="sentenceCount">0</strong>
+          <span>Sentences</span>
+        </div>
+
+        <div class="stat-box">
+          <strong id="paragraphCount">0</strong>
+          <span>Paragraphs</span>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
 
 
-function openQR() {
+function initializeWordCounter() {
 
-    createToolWindow(`
+  const input =
+    document.getElementById("wordInput");
 
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            QR Generator
-        </h2>
-
-        <p class="tool-description">
-            Enter text or a link and generate a QR code.
-        </p>
+  input.addEventListener("input", update);
 
 
-        <textarea
-            id="qrInput"
-            class="qr-input"
-            placeholder="https://example.com"
-        ></textarea>
+  function update() {
 
+    const text =
+      input.value;
 
-        <button
-            class="qr-button"
-            onclick="generateQR()"
-        >
-            Generate QR Code
-        </button>
+    const words =
+      text.trim()
+        ? text.trim().split(/\s+/).length
+        : 0;
 
+    const characters =
+      text.length;
 
-        <div
-            id="qrResult"
-            class="qr-result"
-        ></div>
+    const sentences =
+      text.trim()
+        ? text.split(/[.!?]+/)
+            .filter(item => item.trim()).length
+        : 0;
 
-    `);
+    const paragraphs =
+      text.trim()
+        ? text.split(/\n\s*\n/)
+            .filter(item => item.trim()).length
+        : 0;
+
+    document.getElementById("wordCount")
+      .textContent = words;
+
+    document.getElementById("charCount")
+      .textContent = characters;
+
+    document.getElementById("sentenceCount")
+      .textContent = sentences;
+
+    document.getElementById("paragraphCount")
+      .textContent = paragraphs;
+
+  }
 
 }
 
 
-function generateQR() {
+/* =========================================================
+   3. QR GENERATOR
+   ========================================================= */
 
-    const input =
-        document.getElementById("qrInput").value.trim();
+function qrGeneratorHTML() {
+
+  return `
+    <div class="tool-interface">
+
+      <div class="tool-header">
+        <span class="tool-label">QR TOOL</span>
+        <h2>QR Code Generator</h2>
+        <p>Create a QR code from text or a link.</p>
+      </div>
+
+      <textarea
+        id="qrInput"
+        class="tool-textarea"
+        placeholder="Enter text or URL..."
+      ></textarea>
+
+      <button
+        id="generateQR"
+        class="tool-action-button"
+      >
+        Generate QR Code
+      </button>
+
+      <div
+        id="qrResult"
+        class="qr-result"
+      ></div>
+
+    </div>
+  `;
+}
 
 
-    const result =
-        document.getElementById("qrResult");
+function initializeQRGenerator() {
 
+  const input =
+    document.getElementById("qrInput");
 
-    if (!input) {
+  const button =
+    document.getElementById("generateQR");
 
-        result.innerHTML =
-            "<p>Please enter some text or a link.</p>";
+  const result =
+    document.getElementById("qrResult");
 
-        return;
+  button.addEventListener("click", () => {
+
+    const text =
+      input.value.trim();
+
+    if (!text) {
+
+      result.innerHTML =
+        "<p>Please enter some text or a URL.</p>";
+
+      return;
 
     }
-
 
     const encoded =
-        encodeURIComponent(input);
-
-
-    const imageURL =
-        "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
-        + encoded;
-
+      encodeURIComponent(text);
 
     result.innerHTML = `
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encoded}"
+        alt="Generated QR Code"
+      >
 
-        <img
-            src="${imageURL}"
-            alt="Generated QR Code"
-        >
-
-        <br><br>
-
-        <a
-            href="${imageURL}"
-            target="_blank"
-            rel="noopener"
-            class="qr-button"
-            style="display:inline-block;text-decoration:none;"
-        >
-            Open QR Code
-        </a>
-
+      <a
+        class="tool-action-button"
+        href="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encoded}"
+        download="novatools-qr.png"
+        target="_blank"
+      >
+        Download QR Code
+      </a>
     `;
 
-}
-
-
-/* =====================================
-   COLOR PICKER
-===================================== */
-
-
-function openColorPicker() {
-
-    createToolWindow(`
-
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            Color Picker
-        </h2>
-
-        <p class="tool-description">
-            Choose a color and get its HEX value.
-        </p>
-
-
-        <div class="color-picker-wrapper">
-
-            <input
-                type="color"
-                id="colorInput"
-                class="color-input"
-                value="#4f46e5"
-            >
-
-
-            <div
-                id="colorValue"
-                class="color-value"
-            >
-                #4F46E5
-            </div>
-
-
-            <button
-                class="copy-color"
-                onclick="copyColor()"
-            >
-                Copy HEX
-            </button>
-
-        </div>
-
-    `);
-
-
-    const colorInput =
-        document.getElementById("colorInput");
-
-
-    colorInput.addEventListener("input", function () {
-
-        document.getElementById("colorValue")
-            .textContent =
-                this.value.toUpperCase();
-
-    });
+  });
 
 }
 
 
-function copyColor() {
-
-    const value =
-        document.getElementById("colorValue")
-            .textContent;
-
-
-    navigator.clipboard.writeText(value);
-
-
-    alert("Color copied!");
-
-}
-
-
-/* =====================================
-   UNIT CONVERTER
-===================================== */
-
-
-function openConverter() {
-
-    createToolWindow(`
-
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            Unit Converter
-        </h2>
-
-        <p class="tool-description">
-            Convert common measurements instantly.
-        </p>
-
-
-        <div class="converter-grid">
-
-            <select id="conversionType">
-
-                <option value="length">
-                    Length
-                </option>
-
-                <option value="weight">
-                    Weight
-                </option>
-
-                <option value="temperature">
-                    Temperature
-                </option>
-
-            </select>
-
-
-            <input
-                type="number"
-                id="conversionValue"
-                placeholder="Enter value"
-            >
-
-
-            <select id="fromUnit"></select>
-
-
-            <select id="toUnit"></select>
-
-
-            <button
-                class="qr-button"
-                onclick="convertUnit()"
-            >
-                Convert
-            </button>
-
-
-            <div
-                id="conversionResult"
-                class="converter-result"
-            >
-                Result will appear here
-            </div>
-
-        </div>
-
-    `);
-
-
-    const type =
-        document.getElementById("conversionType");
-
-
-    type.addEventListener(
-        "change",
-        updateConversionUnits
-    );
-
-
-    updateConversionUnits();
-
-}
-
-
-function updateConversionUnits() {
-
-    const type =
-        document.getElementById("conversionType").value;
-
-
-    const from =
-        document.getElementById("fromUnit");
-
-
-    const to =
-        document.getElementById("toUnit");
-
-
-    let units = [];
-
-
-    if (type === "length") {
-
-        units = [
-            ["m", "Meters"],
-            ["km", "Kilometers"],
-            ["cm", "Centimeters"],
-            ["ft", "Feet"],
-            ["in", "Inches"]
-        ];
-
-    }
-
-
-    else if (type === "weight") {
-
-        units = [
-            ["kg", "Kilograms"],
-            ["g", "Grams"],
-            ["lb", "Pounds"],
-            ["oz", "Ounces"]
-        ];
-
-    }
-
-
-    else {
-
-        units = [
-            ["c", "Celsius"],
-            ["f", "Fahrenheit"]
-        ];
-
-    }
-
-
-    from.innerHTML = "";
-
-    to.innerHTML = "";
-
-
-    units.forEach(function (unit) {
-
-        from.innerHTML +=
-            `<option value="${unit[0]}">
-                ${unit[1]}
-            </option>`;
-
-
-        to.innerHTML +=
-            `<option value="${unit[0]}">
-                ${unit[1]}
-            </option>`;
-
-    });
-
-
-    if (units.length > 1) {
-
-        to.selectedIndex = 1;
-
-    }
-
-}
-
-
-function convertUnit() {
-
-    const type =
-        document.getElementById("conversionType").value;
-
-
-    const value =
-        parseFloat(
-            document.getElementById("conversionValue").value
-        );
-
-
-    const from =
-        document.getElementById("fromUnit").value;
-
-
-    const to =
-        document.getElementById("toUnit").value;
-
-
-    const result =
-        document.getElementById("conversionResult");
-
-
-    if (isNaN(value)) {
-
-        result.textContent =
-            "Enter a value first.";
-
-        return;
-
-    }
-
-
-    let answer;
-
-
-    /* LENGTH */
-
-    if (type === "length") {
-
-        const meters = {
-
-            m: 1,
-
-            km: 1000,
-
-            cm: 0.01,
-
-            ft: 0.3048,
-
-            in: 0.0254
-
-        };
-
-
-        answer =
-            value * meters[from] /
-            meters[to];
-
-    }
-
-
-    /* WEIGHT */
-
-    else if (type === "weight") {
-
-        const kilograms = {
-
-            kg: 1,
-
-            g: 0.001,
-
-            lb: 0.45359237,
-
-            oz: 0.0283495
-
-        };
-
-
-        answer =
-            value * kilograms[from] /
-            kilograms[to];
-
-    }
-
-
-    /* TEMPERATURE */
-
-    else {
-
-        if (from === to) {
-
-            answer = value;
-
-        }
-
-        else if (from === "c" && to === "f") {
-
-            answer =
-                (value * 9/5) + 32;
-
-        }
-
-        else if (from === "f" && to === "c") {
-
-            answer =
-                (value - 32) * 5/9;
-
-        }
-
-    }
-
-
-    result.textContent =
-        `${answer.toFixed(4)} ${to.toUpperCase()}`;
-
-}
-
-
-/* =====================================
-   IMAGE RESIZER
-===================================== */
-
-
-function openImageResizer() {
-
-    createToolWindow(`
-
-        <p class="eyebrow">
-            NOVATOOLS
-        </p>
-
-        <h2>
-            Image Resizer
-        </h2>
-
-        <p class="tool-description">
-            Resize an image directly in your browser.
-        </p>
-
-
-        <div class="image-upload">
-
-            <strong>
-                Choose an image
-            </strong>
-
-            <br>
-
-            <input
-                type="file"
-                id="imageInput"
-                accept="image/*"
-            >
-
-        </div>
-
-
-        <div
-            id="imageControls"
-            class="image-controls"
-            style="display:none;"
+/* =========================================================
+   4. COLOR PICKER
+   ========================================================= */
+
+function colorPickerHTML() {
+
+  return `
+    <div class="tool-interface">
+
+      <div class="tool-header">
+        <span class="tool-label">DESIGN TOOL</span>
+        <h2>Color Picker</h2>
+        <p>Choose a color and get its color values.</p>
+      </div>
+
+      <div class="color-picker-area">
+
+        <input
+          type="color"
+          id="colorInput"
+          value="#635BFF"
         >
 
-            <input
-                type="number"
-                id="imageWidth"
-                placeholder="Width"
-            >
+        <div
+          id="colorPreview"
+          class="color-preview"
+        ></div>
 
-            <input
-                type="number"
-                id="imageHeight"
-                placeholder="Height"
-            >
+      </div>
 
-            <button
-                class="qr-button"
-                onclick="resizeImage()"
-            >
-                Resize & Download
-            </button>
+      <div class="color-values">
 
-            <img
-                id="imagePreview"
-                class="image-preview"
-                alt="Preview"
-            >
-
+        <div class="value-box">
+          <span>HEX</span>
+          <strong id="hexValue">#635BFF</strong>
+          <button data-copy="hexValue">Copy</button>
         </div>
 
-    `);
+        <div class="value-box">
+          <span>RGB</span>
+          <strong id="rgbValue">99, 91, 255</strong>
+          <button data-copy="rgbValue">Copy</button>
+        </div>
+
+        <div class="value-box">
+          <span>HSL</span>
+          <strong id="hslValue">243°, 100%, 68%</strong>
+          <button data-copy="hslValue">Copy</button>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
 
 
-    const input =
-        document.getElementById("imageInput");
+function initializeColorPicker() {
+
+  const input =
+    document.getElementById("colorInput");
+
+  const preview =
+    document.getElementById("colorPreview");
 
 
-    input.addEventListener("change", function () {
+  function updateColor() {
 
-        const file =
-            this.files[0];
+    const hex =
+      input.value;
 
+    preview.style.background =
+      hex;
 
-        if (!file) return;
+    const rgb =
+      hexToRGB(hex);
 
+    const hsl =
+      rgbToHSL(
+        rgb.r,
+        rgb.g,
+        rgb.b
+      );
 
-        const reader =
-            new FileReader();
+    document.getElementById("hexValue")
+      .textContent = hex.toUpperCase();
 
+    document.getElementById("rgbValue")
+      .textContent =
+        `${rgb.r}, ${rgb.g}, ${rgb.b}`;
 
-        reader.onload = function (event) {
+    document.getElementById("hslValue")
+      .textContent =
+        `${hsl.h}°, ${hsl.s}%, ${hsl.l}%`;
 
-            const image =
-                new Image();
-
-
-            image.onload = function () {
-
-                document.getElementById("imageWidth")
-                    .value = image.width;
-
-
-                document.getElementById("imageHeight")
-                    .value = image.height;
-
-
-                document.getElementById("imagePreview")
-                    .src = event.target.result;
-
-
-                document.getElementById("imageControls")
-                    .style.display = "grid";
-
-            };
+  }
 
 
-            image.src =
-                event.target.result;
+  input.addEventListener(
+    "input",
+    updateColor
+  );
 
-        };
+  updateColor();
 
 
-        reader.readAsDataURL(file);
+  document
+    .querySelectorAll("[data-copy]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const target =
+          document.getElementById(
+            button.dataset.copy
+          );
+
+        copyText(target.textContent);
+
+        button.textContent = "Copied!";
+
+        setTimeout(() => {
+          button.textContent = "Copy";
+        }, 1200);
+
+      });
 
     });
 
 }
 
 
-function resizeImage() {
+/* =========================================================
+   5. UNIT CONVERTER
+   ========================================================= */
 
-    const input =
-        document.getElementById("imageInput");
+function converterHTML() {
 
+  return `
+    <div class="tool-interface">
 
-    const file =
-        input.files[0];
+      <div class="tool-header">
+        <span class="tool-label">CONVERSION TOOL</span>
+        <h2>Unit Converter</h2>
+        <p>Convert common measurements quickly.</p>
+      </div>
 
+      <select id="conversionType" class="tool-select">
 
-    const width =
-        parseInt(
-            document.getElementById("imageWidth").value
-        );
+        <option value="length">
+          Length
+        </option>
 
+        <option value="weight">
+          Weight
+        </option>
 
-    const height =
-        parseInt(
-            document.getElementById("imageHeight").value
-        );
+        <option value="temperature">
+          Temperature
+        </option>
 
+      </select>
 
-    if (!file || !width || !height) {
+      <div class="converter-row">
 
-        alert(
-            "Please choose an image and enter dimensions."
-        );
+        <div>
+          <input
+            type="number"
+            id="convertInput"
+            class="tool-input"
+            value="1"
+          >
 
-        return;
+          <select
+            id="fromUnit"
+            class="tool-select"
+          ></select>
+        </div>
 
-    }
+        <span class="converter-arrow">
+          →
+        </span>
 
+        <div>
 
-    const reader =
-        new FileReader();
+          <input
+            type="number"
+            id="convertOutput"
+            class="tool-input"
+            readonly
+          >
 
+          <select
+            id="toUnit"
+            class="tool-select"
+          ></select>
 
-    reader.onload = function (event) {
+        </div>
 
-        const image =
-            new Image();
+      </div>
 
-
-        image.onload = function () {
-
-            const canvas =
-                document.createElement("canvas");
-
-
-            canvas.width = width;
-
-            canvas.height = height;
-
-
-            const context =
-                canvas.getContext("2d");
-
-
-            context.drawImage(
-                image,
-                0,
-                0,
-                width,
-                height
-            );
-
-
-            canvas.toBlob(function (blob) {
-
-                const url =
-                    URL.createObjectURL(blob);
-
-
-                const link =
-                    document.createElement("a");
+    </div>
+  `;
+}
 
 
-                link.href = url;
+function initializeConverter() {
 
-                link.download =
-                    "novatools-resized-image.png";
-
-
-                link.click();
-
-
-                URL.revokeObjectURL(url);
-
-            }, "image/png");
-
-        };
-
-
-        image.src =
-            event.target.result;
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-          }
+  const typeSelect =
+    document.getElementById(
+      "con
